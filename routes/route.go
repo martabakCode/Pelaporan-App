@@ -17,7 +17,7 @@ func Init(e *echo.Echo) {
 	e.POST("/login-camat", controllers.LoginCamat)
 
 	e.POST("/add-report", controllers.AddReport)
-
+	e.GET("/get-report/:id", controllers.GetReportByID, middlewares.Authentication())
 	e.GET("/get-report", controllers.GetReport, middlewares.Authentication())
 	e.PUT("/update-report/:id", controllers.UpdateReportStatus, middlewares.Authentication())
 }
