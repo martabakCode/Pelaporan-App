@@ -1,7 +1,6 @@
 package configs
 
 import (
-	"github.com/OctavianoRyan25/Pelaporan-App/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -21,8 +20,4 @@ func CreateDB() {
 
 	// Migrate the schema
 	AutoMigrate()
-}
-
-func AutoMigrate() {
-	DB.AutoMigrate(&models.Report{}, &models.Image{}, &models.Status{}, &models.User{}, &models.Camat{})
 }
