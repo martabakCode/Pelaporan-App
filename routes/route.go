@@ -10,6 +10,8 @@ import (
 func Init(e *echo.Echo) {
 	e.Use(middleware.Logger())
 
+	e.Static("/public", "public")
+
 	e.POST("/register", controllers.Register)
 	e.POST("/register-camat", controllers.RegisterCamat)
 

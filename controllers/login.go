@@ -54,7 +54,9 @@ func Login(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, map[string]interface{}{
 		"status": "Login successfully",
-		"ID":     user.ID,
+		"id":     user.ID,
+		"email":  user.Email,
+		"name":   user.Name,
 		"token":  token,
 	})
 }
@@ -103,7 +105,9 @@ func LoginCamat(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, map[string]interface{}{
 		"status": "Login successfully",
-		"ID":     camat.ID,
+		"id":     camat.ID,
+		"email":  camat.Email,
+		"name":   camat.Name,
 		"token":  token,
 	})
 }
