@@ -2,11 +2,14 @@ package controllers
 
 import (
 	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
 	"time"
+
+	"bytes"
+	"encoding/json"
+	"net/http"
 
 	"github.com/OctavianoRyan25/Pelaporan-App/configs"
 	"github.com/OctavianoRyan25/Pelaporan-App/models"
@@ -256,7 +259,44 @@ func AddReport(c echo.Context) error {
 		}
 		return c.JSON(500, errorResponse)
 	}
+	// URL to which the HTTP POST request will be sent
+	url := "https://7103.api.greenapi.com/waInstance7103927378/sendMessage/e62cdabcaa7d48a589921524c5da0671e0cca61a16704b6890"
 
+	// Data to be sent in the request body as JSON
+	data := map[string]interface{}{
+		"chatId":  report.NoTelepon + "@c.us",                                               // WhatsApp chat ID
+		"message": report.Nama + " telah berhasil dibuat dan sedang diproses. Terima kasih", // Message content
+	}
+
+	// Encode data as JSON
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		return c.JSON(500, err)
+	}
+
+	// Create a new HTTP POST request
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+	if err != nil {
+		return c.JSON(500, err)
+	}
+
+	// Set Content-Type header to application/json
+	req.Header.Set("Content-Type", "application/json")
+
+	// Create an HTTP client and send the request
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return c.JSON(500, err)
+	}
+	defer resp.Body.Close()
+
+	// Read the response body
+	var buf bytes.Buffer
+	_, err = buf.ReadFrom(resp.Body)
+	if err != nil {
+		return c.JSON(500, err)
+	}
 	// Mapping data response
 	dataResponse := models.ReportResponse{
 		ID:            report.ID,
