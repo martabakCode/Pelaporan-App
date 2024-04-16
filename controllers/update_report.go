@@ -29,7 +29,7 @@ func UpdateReportStatus(c echo.Context) error {
 		// Handle error
 	}
 	// URL to which the HTTP POST request will be sent
-	url := "https://7103.api.greenapi.com/waInstance7103927378/sendMessage/e62cdabcaa7d48a589921524c5da0671e0cca61a16704b6890"
+	url := "https://7103.api.greenapi.com/waInstance7103927449/sendMessage/fa85ee9c8cf2401c9061aeec86a9412b6f506ba4876e47b28c"
 
 	// Data to be sent in the request body as JSON
 	data := map[string]interface{}{
